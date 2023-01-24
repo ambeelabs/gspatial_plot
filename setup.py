@@ -15,7 +15,7 @@ setup(
         "matplotlib>=3.6.2",
         "pandas>=1.5.2",
         "pyproj>=3.4.1",
-        "scikit-learn>=1.2.1",
+        "scikit-learn>=1.0.1",
         "scipy>=1.10.0",
         "seaborn>=0.12.2",
         "Shapely>=1.8.2",
