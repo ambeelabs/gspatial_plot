@@ -2,7 +2,6 @@ import geopandas as gpd
 import os
 
 dir = os.path.dirname(os.path.abspath(__file__))
-print(os.getcwd())
 colors = [
     "#f77779",
     "#b6d86c",
