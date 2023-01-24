@@ -9,7 +9,7 @@ from geopandas.plotting import _PolygonPatch
 from shapely.affinity import scale
 from shapely.geometry import shape, mapping
 from shapely.validation import make_valid
-from config import colors, countries, ocean, gridlines, rivers, lakes, us_states
+from gspatial_plot.config import colors, countries, ocean, gridlines, rivers, lakes, us_states
 
 
 def randommap(

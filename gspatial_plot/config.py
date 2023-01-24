@@ -1,5 +1,8 @@
 import geopandas as gpd
+import os
 
+dir = os.path.dirname(os.path.abspath(__file__))
+print(os.getcwd())
 colors = [
     "#f77779",
     "#b6d86c",
@@ -42,9 +45,9 @@ colors = [
     "#a64a76",
     "#cdb7ab",
 ]
-countries = gpd.read_file("./datasets/ne_50m_admin_0_countries.shp")
-ocean = gpd.read_file("./datasets/ne_50m_ocean.shp")
-gridlines = gpd.read_file("./datasets/ne_50m_geographic_lines.shp")
-rivers = gpd.read_file("./datasets/ne_50m_rivers_lake_centerlines.shp")
-lakes = gpd.read_file("./datasets/ne_50m_lakes.shp")
-us_states = gpd.read_file("./datasets/us_states.geojson")
+countries = gpd.read_file(os.path.join(dir, "datasets","ne_50m_admin_0_countries.shp"))
+ocean = gpd.read_file(os.path.join(dir, "datasets","ne_50m_ocean.shp"))
+gridlines = gpd.read_file(os.path.join(dir, "datasets","ne_50m_geographic_lines.shp"))
+rivers = gpd.read_file(os.path.join(dir, "datasets","ne_50m_rivers_lake_centerlines.shp"))
+lakes = gpd.read_file(os.path.join(dir, "datasets","ne_50m_lakes.shp"))
+us_states = gpd.read_file(os.path.join(dir, "datasets","us_states.geojson"))

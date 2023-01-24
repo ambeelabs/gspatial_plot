@@ -1,4 +1,4 @@
-import gspatial_plot as gsp
+import gspatial_plot.plot as gsp
 
 
 def test_dataset():
@@ -16,3 +16,5 @@ def test_shapeplot():
         str(type(gsp.shapeplot(gsp.us_states)))
         == "<class 'matplotlib.axes._subplots.AxesSubplot'>"
     )
+
+test_dataset()
