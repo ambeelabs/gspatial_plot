@@ -7,10 +7,9 @@ import folium
 from sklearn.neighbors import KNeighborsRegressor
 from geopandas.plotting import _PolygonPatch
 from shapely.affinity import scale
-from shapely.geometry import shape, mapping
+from shapely.geometry import Polygon
 from shapely.validation import make_valid
 from gspatial_plot.config import colors, countries, ocean, gridlines, rivers, lakes, us_states
-
 
 def randommap(
     data,
@@ -656,6 +655,122 @@ def heatmap(
 
         for patch in patches:
             ax.add_patch(patch)
+
+    if annot == True and annot_column is not None:
+        data.apply(
+            lambda x: ax.annotate(
+                text=x[annot_column],
+                xy=x.geometry.representative_point().coords[0],
+                ha=annot_align,
+                **annot_kwds,
+            ),
+            axis=1,
+        )
+
+    return ax
+
+
+def spikemap(
+    data,
+    column,
+    shape = "triangle",
+    point_data=False,
+    not_wgs84=False,
+    x_scale_factor=10,
+    y_scale_factor=10,
+    title=None,
+    title_kwds={},
+    figsize=(15, 15),
+    linewidth=0.5,
+    cmap="YlOrRd",
+    facecolor="white",
+    edgecolor=None,
+    scheme="percentiles",
+    boundarycolor="black",
+    boundary_linewidth=0.5,
+    scale_colorbar=False,
+    legend=True,
+    annot=False,
+    annot_column=None,
+    annot_align="center",
+    annot_kwds={},
+    ax=None,
+    axis_on=False,
+    **geopandas_plot_kwds,
+):
+    if ax is None:
+        fig, ax = plt.subplots(figsize=figsize, facecolor=facecolor)
+
+    if title is not None:
+        plt.title(title, **title_kwds)
+
+    ax.axis("off")
+
+    if axis_on == True:
+        ax.axis("on")
+
+    if point_data == False:
+        plot_data = data.copy()
+        plot_data["geometry"] = plot_data.representative_point()
+        if type(column) == str:
+            plot_data["size"] = plot_data[column] / plot_data[column].max()
+        else:
+            plot_data["size"] = column / column.max()
+        ax = data.boundary.plot(
+            color=boundarycolor, linewidth=boundary_linewidth, ax=ax
+        )
+    else:
+        plot_data = data.copy()
+        if type(column) == str:
+            plot_data["size"] = plot_data[column] / plot_data[column].max()
+        else:
+            plot_data["size"] = column / column.max()
+
+    if scale_colorbar == True:
+        legend = False
+    if not_wgs84==True:
+        original_crs = data.crs
+        plot_data = plot_data.to_crs("4326")
+    if shape=='rectangle':
+        plot_data["geometry"] = plot_data.apply(
+            lambda a: Polygon(
+                [
+                    [a.geometry.x - 0.01 * x_scale_factor, a.geometry.y],
+                    [a.geometry.x - 0.01 * x_scale_factor, a.geometry.y + a["size"] * y_scale_factor],
+                    [a.geometry.x + 0.01 * x_scale_factor, a.geometry.y + a["size"] * y_scale_factor],
+                    [a.geometry.x + 0.01 * x_scale_factor, a.geometry.y],
+                ],
+            ),
+            axis=1,
+        )
+    elif shape=='triangle':
+        plot_data["geometry"] = plot_data.apply(
+            lambda a: Polygon(
+                [
+                    [a.geometry.x - 0.01 * x_scale_factor, a.geometry.y],
+                    [a.geometry.x, a.geometry.y + a["size"] * y_scale_factor],
+                    [a.geometry.x + 0.01 * x_scale_factor, a.geometry.y],
+                ],
+            ),
+            axis=1,
+        )
+    else:
+        return None
+    if not_wgs84==True:
+        plot_data = plot_data.to_crs(original_crs)
+    plot_data.plot(
+        ax=ax,
+        column=column,
+        linewidth=linewidth,
+        cmap=cmap,
+        edgecolor=edgecolor,
+        scheme=scheme,
+        legend=legend,
+        **geopandas_plot_kwds,
+    )
+
+    if scale_colorbar == True:
+        ax.figure.colorbar(ax.collections[1], fraction=0.023, ax=ax)
 
     if annot == True and annot_column is not None:
         data.apply(
