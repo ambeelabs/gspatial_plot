@@ -1,1 +1,1 @@
-from plot import *
+from . import plot
