@@ -9,7 +9,16 @@ from geopandas.plotting import _PolygonPatch
 from shapely.affinity import scale
 from shapely.geometry import Polygon
 from shapely.validation import make_valid
-from gspatial_plot.config import colors, countries, ocean, gridlines, rivers, lakes, us_states
+from .config import (
+    colors,
+    countries,
+    ocean,
+    gridlines,
+    rivers,
+    lakes,
+    us_states,
+)
+
 
 def randommap(
     data,
@@ -71,9 +80,9 @@ def shapeplot(
     title_kwds={},
     figsize=(15, 15),
     facecolor="white",
-    edgecolor="black",
+    edgecolor="grey",
     linewidth=0.5,
-    color="grey",
+    color="#F1F3F4",
     annot=False,
     annot_column=None,
     annot_align="center",
@@ -122,7 +131,7 @@ def pointplot(
     figsize=(15, 15),
     color="#ffb536",
     edgecolor="black",
-    basecolor="grey",
+    basecolor="#F1F3F4",
     baseboundarycolor="black",
     base_boundary=True,
     boundary_linewidth=0.5,
@@ -241,6 +250,10 @@ def choropleth(
 def bubblemap(
     data,
     column,
+    base=None,
+    basecolor="#F1F3F4",
+    baseboundarycolor="black",
+    base_boundary=True,
     point_data=False,
     scale_factor=200,
     title=None,
@@ -287,9 +300,12 @@ def bubblemap(
             plot_data["size"] = (
                 ((column - min(column))) / (max(column) - min(column)) * scale_factor
             )
-        ax = data.boundary.plot(
-            color=boundarycolor, linewidth=boundary_linewidth, ax=ax
-        )
+        if base_boundary == True:
+            ax = data.boundary.plot(
+                color=boundarycolor, linewidth=boundary_linewidth, ax=ax
+            )
+        else:
+            ax = shapeplot(data, color=basecolor, linewidth=linewidth, ax=ax)
     else:
         plot_data = data.copy()
         if type(column) == str:
@@ -302,6 +318,16 @@ def bubblemap(
             plot_data["size"] = (
                 ((column - min(column))) / (max(column) - min(column)) * scale_factor
             )
+        if base is not None:
+            if base_boundary == True:
+                ax = base.boundary.plot(
+                    color=baseboundarycolor,
+                    linewidth=boundary_linewidth,
+                    zorder=0,
+                    ax=ax,
+                )
+            else:
+                ax = shapeplot(base, color=basecolor, linewidth=linewidth, ax=ax)
 
     if scale_colorbar == True:
         legend = False
@@ -338,6 +364,9 @@ def bubblemap(
 def cartogram(
     data,
     column,
+    basecolor="#F1F3F4",
+    base_boundary=True,
+    cartogram_only=False,
     title=None,
     title_kwds={},
     figsize=(15, 15),
@@ -390,7 +419,13 @@ def cartogram(
 
     plot_data["geometry"] = scaled_geoms
 
-    ax = data.boundary.plot(color=boundarycolor, linewidth=boundary_linewidth, ax=ax)
+    if cartogram_only == False:
+        if base_boundary == True:
+            ax = data.boundary.plot(
+                color=boundarycolor, linewidth=boundary_linewidth, ax=ax
+            )
+        else:
+            ax = shapeplot(data, color=basecolor, linewidth=linewidth, ax=ax)
 
     if scale_colorbar == True:
         legend = False
@@ -507,10 +542,10 @@ def densityplot(
                 _PolygonPatch(geom, facecolor="white", edgecolor="white")
                 for geom in clip.geoms
             ]
+            for patch in patches:
+                ax.add_patch(patch)
         else:
-            patches = _PolygonPatch(clip, facecolor="white", edgecolor="white")
-
-        for patch in patches:
+            patch = _PolygonPatch(clip, facecolor="white", edgecolor="white")
             ax.add_patch(patch)
 
     return ax
@@ -650,10 +685,10 @@ def heatmap(
                 _PolygonPatch(geom, facecolor="white", edgecolor="white")
                 for geom in clip.geoms
             ]
+            for patch in patches:
+                ax.add_patch(patch)
         else:
-            patches = _PolygonPatch(clip, facecolor="white", edgecolor="white")
-
-        for patch in patches:
+            patch = _PolygonPatch(clip, facecolor="white", edgecolor="white")
             ax.add_patch(patch)
 
     if annot == True and annot_column is not None:
@@ -673,7 +708,12 @@ def heatmap(
 def spikemap(
     data,
     column,
-    shape = "triangle",
+    shape="triangle",
+    spike_only=False,
+    base=None,
+    basecolor="#F1F3F4",
+    baseboundarycolor="black",
+    base_boundary=True,
     point_data=False,
     not_wgs84=False,
     x_scale_factor=10,
@@ -716,34 +756,54 @@ def spikemap(
             plot_data["size"] = plot_data[column] / plot_data[column].max()
         else:
             plot_data["size"] = column / column.max()
-        ax = data.boundary.plot(
-            color=boundarycolor, linewidth=boundary_linewidth, ax=ax
-        )
+        if spike_only == False:
+            if base_boundary == True:
+                ax = data.boundary.plot(
+                    color=boundarycolor, linewidth=boundary_linewidth, ax=ax
+                )
+            else:
+                ax = shapeplot(data, color=basecolor, linewidth=linewidth, ax=ax)
     else:
         plot_data = data.copy()
         if type(column) == str:
             plot_data["size"] = plot_data[column] / plot_data[column].max()
         else:
             plot_data["size"] = column / column.max()
+        if base is not None:
+            if base_boundary == True:
+                ax = base.boundary.plot(
+                    color=baseboundarycolor,
+                    linewidth=boundary_linewidth,
+                    zorder=0,
+                    ax=ax,
+                )
+            else:
+                ax = shapeplot(base, color=basecolor, linewidth=linewidth, ax=ax)
 
     if scale_colorbar == True:
         legend = False
-    if not_wgs84==True:
+    if not_wgs84 == True:
         original_crs = data.crs
         plot_data = plot_data.to_crs("4326")
-    if shape=='rectangle':
+    if shape == "rectangle":
         plot_data["geometry"] = plot_data.apply(
             lambda a: Polygon(
                 [
                     [a.geometry.x - 0.01 * x_scale_factor, a.geometry.y],
-                    [a.geometry.x - 0.01 * x_scale_factor, a.geometry.y + a["size"] * y_scale_factor],
-                    [a.geometry.x + 0.01 * x_scale_factor, a.geometry.y + a["size"] * y_scale_factor],
+                    [
+                        a.geometry.x - 0.01 * x_scale_factor,
+                        a.geometry.y + a["size"] * y_scale_factor,
+                    ],
+                    [
+                        a.geometry.x + 0.01 * x_scale_factor,
+                        a.geometry.y + a["size"] * y_scale_factor,
+                    ],
                     [a.geometry.x + 0.01 * x_scale_factor, a.geometry.y],
                 ],
             ),
             axis=1,
         )
-    elif shape=='triangle':
+    else:
         plot_data["geometry"] = plot_data.apply(
             lambda a: Polygon(
                 [
@@ -754,9 +814,7 @@ def spikemap(
             ),
             axis=1,
         )
-    else:
-        return None
-    if not_wgs84==True:
+    if not_wgs84 == True:
         plot_data = plot_data.to_crs(original_crs)
     plot_data.plot(
         ax=ax,
