@@ -38,6 +38,30 @@ def randommap(
     colors=colors,
     **geopandas_plot_kwds,
 ):
+    """
+    Fills the data with random colors. Ideal for generating political maps.
+
+    Args:
+        data (GeoDataFrame): GeoDataFrame for which the map must be plotted
+        title (str, optional): Title of the map. Defaults to None.
+        title_kwds (dict, optional): Keyword arguments to matplotlib.pyplot.title. Defaults to {}.
+        figsize (tuple, optional): Figure size. Defaults to (15, 15).
+        facecolor (str, optional): Figure's face color. Defaults to "white".
+        edgecolor (str, optional): Map's edge color. Defaults to "black".
+        linewidth (float, optional): Width of lines for shapes. Defaults to 0.5.
+        seed (int, optional): Seed for generating random colors. Defaults to 3.
+        annot (bool, optional): If True, annotations are generated. Defaults to False.
+        annot_column (str/GeoDataFrame column, optional): If annot is True, column should b passed as source for annotation. Defaults to None.
+        annot_align (str, optional): Text alignment for annotation. Defaults to "center".
+        annot_kwds (dict, optional): Keyword arguments for annotation. Defaults to {}.
+        ax (matplotlib axis, optional): axis must be passed if plotting needs to be done on an existing axis. Defaults to None.
+        axis_on (bool, optional): If True, axes will be visible. Defaults to False.
+        colors (list/tuple, optional): List of colors to sample from. Defaults to a predefined set of colors.
+        **geopandas_plot_kwds: Geopandas plot keyword arguments
+
+    Returns:
+        ax: matplotlib axis object
+    """ """"""
     np.random.seed(seed=seed)
     colors = np.random.choice(colors, size=len(data))
 
@@ -91,6 +115,31 @@ def shapeplot(
     axis_on=False,
     **geopandas_plot_kwds,
 ):
+    """
+
+    Plots GeoDataFrame shapes. replacement for geopandas plot's default plot.
+
+    Args:
+        data (GeoDataFrame): GeoDataFrame for which the map must be plotted
+        title (str, optional): Title of the map. Defaults to None.
+        title_kwds (dict, optional): Keyword arguments to matplotlib.pyplot.title. Defaults to {}.
+        figsize (tuple, optional): Figure size. Defaults to (15, 15).
+        facecolor (str, optional): Figure's face color. Defaults to "white".
+        edgecolor (str, optional): Map's edge color. Defaults to "black".
+        linewidth (float, optional): Width of lines for shapes. Defaults to 0.5.
+        color (str, optional): Color of the shape. Defaults to "#F1F3F4".
+        annot (bool, optional): If True, annotations are generated. Defaults to False.
+        annot_column (str/GeoDataFrame column, optional): If annot is True, column should b passed as source for annotation. Defaults to None.
+        annot_align (str, optional): Text alignment for annotation. Defaults to "center".
+        annot_kwds (dict, optional): Keyword arguments for annotation. Defaults to {}.
+        ax (matplotlib axis, optional): axis must be passed if plotting needs to be done on an existing axis. Defaults to None.
+        axis_on (bool, optional): If True, axes will be visible. Defaults to False.
+        **geopandas_plot_kwds: Geopandas plot keyword arguments
+
+    Returns:
+        ax: matplotlib axis object
+
+    """
     if ax is None:
         fig, ax = plt.subplots(figsize=figsize, facecolor=facecolor)
 
@@ -128,6 +177,7 @@ def pointplot(
     data,
     base=None,
     title=None,
+    title_kwds={},
     figsize=(15, 15),
     color="#ffb536",
     edgecolor="black",
@@ -136,7 +186,6 @@ def pointplot(
     base_boundary=True,
     boundary_linewidth=0.5,
     linewidth=0.5,
-    title_kwds={},
     annot=False,
     annot_column=None,
     annot_align="center",
@@ -146,6 +195,35 @@ def pointplot(
     facecolor="white",
     **geopandas_plot_kwds,
 ):
+    """
+    Plots point data. Can plot it over another GeoDataFrame
+
+    Args:
+        data (GeoDataFrame): GeoDataFrame for which the map must be plotted
+        base (GeoDataFrame, optional): Base GeoDataFrame on top of which data must be plotted. Defaults to None.
+        title (str, optional): Title of the map. Defaults to None.
+        title_kwds (dict, optional): Keyword arguments to matplotlib.pyplot.title. Defaults to {}.
+        figsize (tuple, optional): Figure size. Defaults to (15, 15).
+        color (str, optional): Color of the point. Defaults to "#ffb536".
+        edgecolor (str, optional): Map's edge color. Defaults to "black".
+        basecolor (str, optional): Color of the base data. Defaults to "#F1F3F4".
+        baseboundarycolor (str, optional): Boundary color of the base data. Defaults to "black".
+        base_boundary (bool, optional): If Base data boundaries should be visible. Defaults to True.
+        boundary_linewidth (float, optional): Linewidth of the base data boundaries. Defaults to 0.5.
+        linewidth (float, optional): Width of lines for shapes. Defaults to 0.5.
+        annot (bool, optional): If True, annotations are generated. Defaults to False.
+        annot_column (str/GeoDataFrame column, optional): If annot is True, column should b passed as source for annotation. Defaults to None.
+        annot_align (str, optional): Text alignment for annotation. Defaults to "center".
+        annot_kwds (dict, optional): Keyword arguments for annotation. Defaults to {}.
+        ax (matplotlib axis, optional): axis must be passed if plotting needs to be done on an existing axis. Defaults to None.
+        axis_on (bool, optional): If True, axes will be visible. Defaults to False.
+        facecolor (str, optional): Figure's face color. Defaults to "white".
+        **geopandas_plot_kwds: Geopandas plot keyword arguments
+
+    Returns:
+        ax: matplotlib axis object
+
+    """
     if ax is None:
         fig, ax = plt.subplots(figsize=figsize, facecolor=facecolor)
 
@@ -205,6 +283,34 @@ def choropleth(
     axis_on=False,
     **geopandas_plot_kwds,
 ):
+    """
+    Generates Choropleth Map. Replacement for geopandas plot with a column passed in arguments.
+
+    Args:
+        data (GeoDataFrame): GeoDataFrame for which the map must be plotted
+        column (str/GeoDataFrame column): Column for which choropleth map should be plotted
+        title (str, optional): Title of the map. Defaults to None.
+        title_kwds (dict, optional): Keyword arguments to matplotlib.pyplot.title. Defaults to {}.
+        figsize (tuple, optional): Figure size. Defaults to (15, 15).
+        cmap (str, optional): Colormap for the plot. Defaults to "YlOrRd".
+        facecolor (str, optional): Figure's face color. Defaults to "white".
+        scheme (str, optional): mapclassify scheme for assigning colors. Defaults to "percentiles".
+        boundarycolor (str, optional): Map's boundary color. Defaults to "black".
+        boundary_linewidth (float, optional): Linewidth of boundaries. Defaults to 0.5.
+        scale_colorbar (bool, optional): If True, the colorbar is scaled to the map extents. Defaults to False.
+        legend (bool, optional): If True, legend is displayed. Defaults to True.
+        annot (bool, optional): If True, annotations are generated. Defaults to False.
+        annot_column (str/GeoDataFrame column, optional): If annot is True, column should b passed as source for annotation. Defaults to None.
+        annot_align (str, optional): Text alignment for annotation. Defaults to "center".
+        annot_kwds (dict, optional): Keyword arguments for annotation. Defaults to {}.
+        ax (matplotlib axis, optional): axis must be passed if plotting needs to be done on an existing axis. Defaults to None.
+        axis_on (bool, optional): If True, axes will be visible. Defaults to False.
+        **geopandas_plot_kwds: Geopandas plot keyword arguments
+
+    Returns:
+        ax: matplotlib axis object
+
+    """
     if ax is None:
         fig, ax = plt.subplots(figsize=figsize, facecolor=facecolor)
 
@@ -276,6 +382,42 @@ def bubblemap(
     axis_on=False,
     **geopandas_plot_kwds,
 ):
+    """
+    Plots a bubble map.
+
+    Args:
+        data (GeoDataFrame): GeoDataFrame for which the map must be plotted
+        column (str/GeoDataFrame column): Column for which the plot should be plotted
+        base (GeoDataFrame, optional): Base GeoDataFrame on top of which data must be plotted. Defaults to None.
+        basecolor (str, optional): Color of the base data. Defaults to "#F1F3F4".
+        baseboundarycolor (str, optional): Boundary color of the base data. Defaults to "black".
+        base_boundary (bool, optional): If Base data boundaries should be visible. Defaults to True.
+        point_data (bool, optional): Must be true if the type of data being mapped is point shape. Defaults to False.
+        scale_factor (int, optional): Scales the bubbles, higher scale factor means larger the bubble. Defaults to 200.
+        title (str, optional): Title of the map. Defaults to None.
+        title_kwds (dict, optional): Keyword arguments to matplotlib.pyplot.title. Defaults to {}.
+        figsize (tuple, optional): Figure size. Defaults to (15, 15).
+        linewidth (float, optional): Width of lines for shapes. Defaults to 0.5.
+        cmap (str, optional): Colormap for the plot. Defaults to "YlOrRd".
+        edgecolor (str, optional): Map's edge color. Defaults to "black".
+        facecolor (str, optional): Figure's face color. Defaults to "white".
+        scheme (str, optional): mapclassify scheme for assigning colors. Defaults to "percentiles".
+        boundarycolor (str, optional): Map's boundary color. Defaults to "black".
+        boundary_linewidth (float, optional): Linewidth of boundaries. Defaults to 0.5.
+        scale_colorbar (bool, optional): If True, the colorbar is scaled to the map extents. Defaults to False.
+        legend (bool, optional): If True, legend is displayed. Defaults to True.
+        annot (bool, optional): If True, annotations are generated. Defaults to False.
+        annot_column (str/GeoDataFrame column, optional): If annot is True, column should b passed as source for annotation. Defaults to None.
+        annot_align (str, optional): Text alignment for annotation. Defaults to "center".
+        annot_kwds (dict, optional): Keyword arguments for annotation. Defaults to {}.
+        ax (matplotlib axis, optional): axis must be passed if plotting needs to be done on an existing axis. Defaults to None.
+        axis_on (bool, optional): If True, axes will be visible. Defaults to False.
+        **geopandas_plot_kwds: Geopandas plot keyword arguments
+
+    Returns:
+        ax: matplotlib axis object
+
+    """
     if ax is None:
         fig, ax = plt.subplots(figsize=figsize, facecolor=facecolor)
 
@@ -387,6 +529,39 @@ def cartogram(
     axis_on=False,
     **geopandas_plot_kwds,
 ):
+    """
+    Plots a cartogram
+
+    Args:
+        data (GeoDataFrame): GeoDataFrame for which the map must be plotted
+        column (str/GeoDataFrame column): Column for which the plot should be plotted
+        basecolor (str, optional): Color of the base data. Defaults to "#F1F3F4".
+        base_boundary (bool, optional): If Base data boundaries should be visible. Defaults to True.
+        cartogram_only (bool, optional): If True, function returns cartogram without base data. Defaults to False.
+        title (str, optional): Title of the map. Defaults to None.
+        title_kwds (dict, optional): Keyword arguments to matplotlib.pyplot.title. Defaults to {}.
+        figsize (tuple, optional): Figure size. Defaults to (15, 15).
+        linewidth (float, optional): Width of lines for shapes. Defaults to 0.5.
+        cmap (str, optional): Colormap for the plot. Defaults to "YlOrRd".
+        edgecolor (str, optional): Map's edge color. Defaults to "black".
+        facecolor (str, optional): Figure's face color. Defaults to "white".
+        scheme (str, optional): mapclassify scheme for assigning colors. Defaults to "percentiles".
+        boundarycolor (str, optional): Map's boundary color. Defaults to "black".
+        boundary_linewidth (float, optional): Linewidth of boundaries. Defaults to 0.5.
+        scale_colorbar (bool, optional): If True, the colorbar is scaled to the map extents. Defaults to False.
+        legend (bool, optional): If True, legend is displayed. Defaults to True.
+        annot (bool, optional): If True, annotations are generated. Defaults to False.
+        annot_column (str/GeoDataFrame column, optional): If annot is True, column should b passed as source for annotation. Defaults to None.
+        annot_align (str, optional): Text alignment for annotation. Defaults to "center".
+        annot_kwds (dict, optional): Keyword arguments for annotation. Defaults to {}.
+        ax (matplotlib axis, optional): axis must be passed if plotting needs to be done on an existing axis. Defaults to None.
+        axis_on (bool, optional): If True, axes will be visible. Defaults to False.
+        **geopandas_plot_kwds: Geopandas plot keyword arguments
+
+    Returns:
+        ax: matplotlib axis object
+
+    """
     if ax is None:
         fig, ax = plt.subplots(figsize=figsize, facecolor=facecolor)
 
@@ -477,6 +652,31 @@ def densityplot(
     axis_on=False,
     **geopandas_plot_kwds,
 ):
+    """
+    Plots a kde plot over a GeoDataFrame
+
+    Args:
+        data (GeoDataFrame): GeoDataFrame for which the map must be plotted
+        base (GeoDataFrame, optional): Base GeoDataFrame on top of which data must be plotted. Defaults to None.
+        clip (bool, optional): If True, the plot is clipped to geo data boundary. Defaults to False.
+        clip_factor (float, optional): Controls the scale of clipping mask, increase this if the plot is outside clipping boundary. Defaults to 1.2.
+        point_data (bool, optional): Must be true if the type of data being mapped is point shape. Defaults to False.
+        title (str, optional): Title of the map. Defaults to None.
+        title_kwds (dict, optional): Keyword arguments to matplotlib.pyplot.title. Defaults to {}.
+        figsize (tuple, optional): Figure size. Defaults to (15, 15).
+        cmap (str, optional): Colormap for the plot. Defaults to "YlOrRd".
+        boundarycolor (str, optional): Map's boundary color. Defaults to "black".
+        boundary_linewidth (float, optional): Linewidth of boundaries. Defaults to 0.5.
+        scale_colorbar (bool, optional): If True, the colorbar is scaled to the map extents. Defaults to False.
+        ax (matplotlib axis, optional): axis must be passed if plotting needs to be done on an existing axis. Defaults to None.
+        axis_on (bool, optional): If True, axes will be visible. Defaults to False.
+        **geopandas_plot_kwds: Geopandas plot keyword arguments
+
+
+    Returns:
+        ax: matplotlib axis object
+
+    """
     if ax is None:
         fig, ax = plt.subplots(figsize=figsize, facecolor=facecolor)
 
@@ -578,6 +778,40 @@ def heatmap(
     axis_on=False,
     **geopandas_plot_kwds,
 ):
+    """
+    Plots heatmap. For polygons, the function returns a Choropleth map by default unless interpolated.
+
+    Args:
+        data (GeoDataFrame): GeoDataFrame for which the map must be plotted
+        column (str/GeoDataFrame column): Column for which the plot should be plotted
+        base (GeoDataFrame, optional): Base GeoDataFrame on top of which data must be plotted. Defaults to None.
+        point_data (bool, optional): Must be true if the type of data being mapped is point shape. Defaults to False.
+        interpolate (bool, optional): If True, data is interpolated using KNN. Defaults to False.
+        interpolation_grid_space (float, optional): Grid Space for interpolation, Higher grid space needs more time and memory for interpolation. Defaults to 0.05.
+        clip (bool, optional): If True, the plot is clipped to geo data boundary. Defaults to False.
+        clip_factor (float, optional): Controls the scale of clipping mask, increase this if the plot is outside clipping boundary. Defaults to 1.2.
+        title (str, optional): Title of the map. Defaults to None.
+        title_kwds (dict, optional): Keyword arguments to matplotlib.pyplot.title. Defaults to {}.
+        figsize (tuple, optional): Figure size. Defaults to (15, 15).
+        cmap (str, optional): Colormap for the plot. Defaults to "YlOrRd".
+        facecolor (str, optional): Figure's face color. Defaults to "white".
+        scheme (str, optional): mapclassify scheme for assigning colors. Defaults to "percentiles".
+        boundarycolor (str, optional): Map's boundary color. Defaults to "black".
+        boundary_linewidth (float, optional): Linewidth of boundaries. Defaults to 0.5.
+        scale_colorbar (bool, optional): If True, the colorbar is scaled to the map extents. Defaults to False.
+        legend (bool, optional): If True, legend is displayed. Defaults to True.
+        annot (bool, optional): If True, annotations are generated. Defaults to False.
+        annot_column (str/GeoDataFrame column, optional): If annot is True, column should b passed as source for annotation. Defaults to None.
+        annot_align (str, optional): Text alignment for annotation. Defaults to "center".
+        annot_kwds (dict, optional): Keyword arguments for annotation. Defaults to {}.
+        ax (matplotlib axis, optional): axis must be passed if plotting needs to be done on an existing axis. Defaults to None.
+        axis_on (bool, optional): If True, axes will be visible. Defaults to False.
+        **geopandas_plot_kwds: Geopandas plot keyword arguments
+
+
+    Returns:
+        ax: matplotlib axis object
+    """
     if ax is None:
         fig, ax = plt.subplots(figsize=figsize, facecolor=facecolor)
 
@@ -723,8 +957,8 @@ def spikemap(
     figsize=(15, 15),
     linewidth=0.5,
     cmap="YlOrRd",
-    facecolor="white",
     edgecolor=None,
+    facecolor="white",
     scheme="percentiles",
     boundarycolor="black",
     boundary_linewidth=0.5,
@@ -738,6 +972,47 @@ def spikemap(
     axis_on=False,
     **geopandas_plot_kwds,
 ):
+    """
+    Generates a spikemap.
+
+    Args:
+        data (GeoDataFrame): GeoDataFrame for which the map must be plotted
+        column (str/GeoDataFrame column): Column for which the plot should be plotted
+        shape (str, optional): Shape of spike, either rectangle or triangle. Defaults to "triangle".
+        spike_only (bool, optional): If True, only spikes are returned without base map. Defaults to False.
+        base (GeoDataFrame, optional): Base GeoDataFrame on top of which data must be plotted. Defaults to None.
+        basecolor (str, optional): Color of the base data. Defaults to "#F1F3F4".
+        baseboundarycolor (str, optional): Boundary color of the base data. Defaults to "black".
+        base_boundary (bool, optional): If Base data boundaries should be visible. Defaults to True.
+        point_data (bool, optional): Must be true if the type of data being mapped is point shape. Defaults to False.
+        not_wgs84 (bool, optional): Needs to be true if data being plotted is not in WGS84/ESPG:4326. Defaults to False.
+        x_scale_factor (int, optional): Scale factor for base of the shape. Defaults to 10.
+        y_scale_factor (int, optional): Scale factor for height of the shape. Defaults to 10.
+        title (str, optional): Title of the map. Defaults to None.
+        title_kwds (dict, optional): Keyword arguments to matplotlib.pyplot.title. Defaults to {}.
+        figsize (tuple, optional): Figure size. Defaults to (15, 15).
+        linewidth (float, optional): Width of lines for shapes. Defaults to 0.5.
+        cmap (str, optional): Colormap for the plot. Defaults to "YlOrRd".
+        edgecolor (str, optional): Map's edge color. Defaults to "black".
+        facecolor (str, optional): Figure's face color. Defaults to "white".
+        scheme (str, optional): mapclassify scheme for assigning colors. Defaults to "percentiles".
+        boundarycolor (str, optional): Map's boundary color. Defaults to "black".
+        boundary_linewidth (float, optional): Linewidth of boundaries. Defaults to 0.5.
+        scale_colorbar (bool, optional): If True, the colorbar is scaled to the map extents. Defaults to False.
+        legend (bool, optional): If True, legend is displayed. Defaults to True.
+        annot (bool, optional): If True, annotations are generated. Defaults to False.
+        annot_column (str/GeoDataFrame column, optional): If annot is True, column should b passed as source for annotation. Defaults to None.
+        annot_align (str, optional): Text alignment for annotation. Defaults to "center".
+        annot_kwds (dict, optional): Keyword arguments for annotation. Defaults to {}.
+        ax (matplotlib axis, optional): axis must be passed if plotting needs to be done on an existing axis. Defaults to None.
+        axis_on (bool, optional): If True, axes will be visible. Defaults to False.
+        **geopandas_plot_kwds: Geopandas plot keyword arguments
+
+
+    Returns:
+        ax: matplotlib axis object
+
+    """
     if ax is None:
         fig, ax = plt.subplots(figsize=figsize, facecolor=facecolor)
 
@@ -862,6 +1137,31 @@ def offline_static_basemap(
     axis_on=False,
     **geopandas_plot_kwds,
 ):
+    """
+    Generates a static basemap that can be used as base for other plots.
+    This function can be used without internet as the map is generated using naturalearth vector data.
+
+    Args:
+        bounds (list/Geopandas Bounds, optional): Bounding box for clipping the basemap. Defaults to None.
+        landcolor (str, optional): Color of land. Defaults to "#f1e9d7".
+        watercolor (str, optional): Color of water. Defaults to "#7ae2ff".
+        gridlinescolor (str, optional): Color of gridlines. Defaults to "grey".
+        gridlines_alpha (float, optional): Opacity of gridlines. Defaults to 0.5.
+        gridlines_width (float, optional): Linewidth of gridlines. Defaults to 0.5.
+        figsize (tuple, optional): Figure size. Defaults to (15, 15).
+        title (str, optional): Title of the map. Defaults to None.
+        title_kwds (dict, optional): Keyword arguments to matplotlib.pyplot.title. Defaults to {}.
+        facecolor (str, optional): Figure's face color. Defaults to "white".
+        edgecolor (str, optional): Map's edge color. Defaults to "black".
+        edgewidth (int, optional): Width of edges. Defaults to 0.
+        linewidth (int, optional): Width of boundaries. Defaults to 0.
+        ax (matplotlib axis, optional): axis must be passed if plotting needs to be done on an existing axis. Defaults to None.
+        axis_on (bool, optional): If True, axes will be visible. Defaults to False.
+        **geopandas_plot_kwds: Geopandas plot keyword arguments
+
+    Returns:
+        ax: matplotlib axis object
+    """
     if ax is None:
         fig, ax = plt.subplots(figsize=figsize, facecolor=facecolor)
 
@@ -938,6 +1238,29 @@ def offline_folium_basemap(
     style_function=None,
     **folium_kwds,
 ):
+    """
+    Generates a interactive folium basemap that can be used as base for other plots.
+    This function can be used without internet as the map is generated using naturalearth vector data.
+
+    Args:
+        location (list, optional): Location to center the basemap. Defaults to [0, 0].
+        landcolor (str, optional): Color of land. Defaults to "#f1e9d7".
+        watercolor (str, optional): Color of water. Defaults to "#32d2ff".
+        gridlinescolor (str, optional): Color of gridlines. Defaults to "grey".
+        gridlines_opacity (float, optional): Opacity of gridlines. Defaults to 0.5.
+        gridlines_weight (float, optional): Linewidth of gridlines. Defaults to 0.5.
+        dash_array (str, optional): Dash array parameter of folium map. Defaults to "5, 5".
+        edgecolor (str, optional): Color of edges. Defaults to "black".
+        borders (int, optional): Line width of borders. Defaults to 0.
+        linewidth (float, optional): Linewidth of shapes. Defaults to 0.5.
+        zoom_start (int, optional): Zoom start parameter of folium map. Defaults to 2.
+        max_zoom (int, optional): Max zoom paraperter f folium map. Defaults to 5.
+        style_function (_type_, optional): Folium style function. Defaults to None.
+        **folium_kwds: Folium keywords
+
+    Returns:
+        m: Folium map object
+    """
     m = folium.Map(
         location=location,
         tiles=None,
@@ -1014,3 +1337,4 @@ def offline_folium_basemap(
     lakes_json.add_to(m)
 
     return m
+
