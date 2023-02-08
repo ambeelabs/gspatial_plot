@@ -61,7 +61,8 @@ def randommap(
 
     Returns:
         ax: matplotlib axis object
-    """ """"""
+    
+    """
     np.random.seed(seed=seed)
     colors = np.random.choice(colors, size=len(data))
 
