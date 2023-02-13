@@ -13,6 +13,7 @@ setup(
     license="MIT",
     url='https://github.com/ambeelabs/gspatial_plot/',
     description="A geospatial plotting library built on top of geopandas.",
+    long_description_content_type="text/markdown",
     long_description=long_description,
     install_requires=[
         "Fiona>=1.8.22",
