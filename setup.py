@@ -8,7 +8,7 @@ long_description = open(os.path.join(here, 'README.md')).read()
 setup(
     name="gspatial_plot",
     packages=find_packages(include=["gspatial_plot"]),
-    version="0.1.0-a0",
+    version="0.1.0-a1",
     author="Ambee",
     license="MIT",
     url='https://github.com/ambeelabs/gspatial_plot/',
