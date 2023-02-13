@@ -4,6 +4,14 @@
 
 A geospatial plotting library built on top of geopandas. The aim of this library is to simplify generation of various geospatial plot and provide a simple interface to various commonly used geospatial plot types.
 
+
+
+# Documentation
+
+[Welcome to gspatial-plot’s documentation! &mdash; gspatial-plot 0.1.0a0 documentation](https://gspatial-plot.readthedocs.io/en/latest/index.html)
+
+
+
 # Features
 
 1. Simple API
