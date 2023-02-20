@@ -1,6 +1,6 @@
 gspatial\_plot package
 ======================
-
+The examples mentioned in he documentation is also part of examples jupyter notebook present in the github repo, So feel free to download it and play with it.
 
 .. py:function:: randommap(    data,    title=None,    title_kwds={},    figsize=(15, 15),    facecolor="white",    edgecolor="black",    linewidth=0.5,    seed=3,    annot=False,    annot_column=None,    annot_align="center",    annot_kwds={},    ax=None,    axis_on=False,    colors=colors,    **geopandas_plot_kwds,)
     
@@ -40,6 +40,14 @@ gspatial\_plot package
     :returns: matplotlib axis object
     :rtype: ax
 
+**Examples**
+::
+
+    gsp.randommap(usa, seed=3, annot=True, annot_column="NAME", figsize=(30, 30))
+
+.. image:: images/randommap1.png
+   :width: 600
+
 .. py:function:: shapeplot(    data,    title=None,    title_kwds={},    figsize=(15, 15),    facecolor="white",    edgecolor="grey",    linewidth=0.5,    color="#F1F3F4",    annot=False,    annot_column=None,    annot_align="center",    annot_kwds={},    ax=None,    axis_on=False,    **geopandas_plot_kwds,)
     
     Plots GeoDataFrame shapes. replacement for geopandas plot's default plot.
@@ -76,6 +84,26 @@ gspatial\_plot package
     :returns: matplotlib axis object
     :rtype: ax
     
+**Examples**
+::
+    
+    gsp.shapeplot(usa, figsize=(15, 15))
+
+.. image:: images/shapeplot1.png
+   :width: 600
+
+::
+    
+    gsp.shapeplot(
+        usa,
+        title="USA MAP",
+        title_kwds={"fontsize": 25, "fontname": "sans-serif", "fontweight": 3},
+    )
+
+.. image:: images/shapeplot2.png
+   :width: 600
+
+
 .. py:function:: pointplot(    data,    base=None,    title=None,    title_kwds={},    figsize=(15, 15),    color="#ffb536",    edgecolor="black",    basecolor="#F1F3F4",    baseboundarycolor="black",    base_boundary=True,    boundary_linewidth=0.5,    linewidth=0.5,    annot=False,    annot_column=None,    annot_align="center",    annot_kwds={},    ax=None,    axis_on=False,    facecolor="white",    **geopandas_plot_kwds,)
  
     Plots point data. Can plot it over another GeoDataFrame
@@ -122,6 +150,51 @@ gspatial\_plot package
     :returns: matplotlib axis object
     :rtype: ax
 
+**Examples**
+::
+    
+    gsp.pointplot(usa_points, base=usa)
+
+.. image:: images/pointplot1.png
+   :width: 600
+
+::
+    
+    gsp.pointplot(usa_points, base=usa, base_boundary=False)
+
+.. image:: images/pointplot2.png
+   :width: 600
+
+::
+    
+    gsp.pointplot(usa_points)
+
+.. image:: images/pointplot3.png
+   :width: 600
+
+::
+    
+    ax = gsp.shapeplot(usa, figsize=(15, 15))
+    gsp.pointplot(usa_points, ax=ax)
+
+.. image:: images/pointplot4.png
+   :width: 600
+
+::
+    
+    gsp.pointplot(
+        usa_points,
+        base=usa,
+        basecolor="#7aebff",
+        base_boundary=False,
+        title="USA Points",
+        title_kwds={"fontsize": 25, "fontname": "sans-serif", "fontweight": 3},
+    )
+
+.. image:: images/pointplot5.png
+   :width: 600
+
+
 .. py:function:: choropleth(    data,    column,    title=None,    title_kwds={},    figsize=(15, 15),    cmap="YlOrRd",    facecolor="white",    scheme="percentiles",    boundarycolor="black",    boundary_linewidth=0.5,    scale_colorbar=False,    legend=True,    annot=False,    annot_column=None,    annot_align="center",    annot_kwds={},    ax=None,    axis_on=False,    **geopandas_plot_kwds,)
  
     Generates Choropleth Map. Replacement for geopandas plot with a column passed in arguments.
@@ -165,7 +238,48 @@ gspatial\_plot package
     :param \*\*geopandas_plot_kwds: Geopandas plot keyword arguments
     :returns: matplotlib axis object
     :rtype: ax
-   
+
+**Examples**
+::
+    
+    gsp.choropleth(usa, "AWATER")
+
+.. image:: images/chropleth1.png
+   :width: 600
+
+::
+    
+    gsp.choropleth(
+        usa,
+        "AWATER",
+        scheme=None,
+        scale_colorbar=True,
+    )
+
+.. image:: images/chropleth2.png
+   :width: 600
+
+::
+    
+    gsp.choropleth(
+        usa,
+        "AWATER",
+        cmap="Blues",
+        figsize=(30, 30),
+        legend_kwds={"loc": "lower left", "bbox_to_anchor": (0, 0.2), "prop": {"size": 22}},
+        title="USA TOTAL WATER AREA",
+        title_kwds={
+            "fontsize": 50,
+            "fontname": "sans-serif",
+            "fontweight": 3,
+            "loc": "right",
+        },
+    )
+
+.. image:: images/chropleth3.png
+   :width: 600
+
+
 .. py:function:: bubblemap(    data,    column,    base=None,    basecolor="#F1F3F4",    baseboundarycolor="black",    base_boundary=True,    point_data=False,    scale_factor=200,    title=None,    title_kwds={},    figsize=(15, 15),    linewidth=0.5,    cmap="YlOrRd",    edgecolor="black",    facecolor="white",    scheme="percentiles",    boundarycolor="black",    boundary_linewidth=0.5,    scale_colorbar=False,    legend=True,    annot=False,    annot_column=None,    annot_align="center",    annot_kwds={},    ax=None,    axis_on=False,    **geopandas_plot_kwds,)
     
     Plots a bubble map.
@@ -226,7 +340,58 @@ gspatial\_plot package
     :returns: matplotlib axis object
     :rtype: ax
     
-   
+
+**Examples**
+::
+    
+    gsp.bubblemap(usa, usa["AWATER"])
+
+.. image:: images/bubble1.png
+   :width: 600
+
+::
+    
+    gsp.bubblemap(usa, usa["AWATER"], scale_factor=400)
+
+.. image:: images/bubble2.png
+   :width: 600
+
+::
+    
+    gsp.bubblemap(usa_pts, "AWATER", point_data=True)
+
+.. image:: images/bubble3.png
+   :width: 600
+
+::
+    
+    gsp.bubblemap(usa_pts, "AWATER", base=usa, base_boundary=False, point_data=True)
+
+.. image:: images/bubble4.png
+   :width: 600
+
+::
+    
+    gsp.bubblemap(
+        usa,
+        usa["AWATER"],
+        cmap="Blues",
+        figsize=(30, 30),
+        legend_kwds={"loc": "lower left", "bbox_to_anchor": (0, 0.2), "prop": {"size": 22}},
+        title="USA TOTAL WATER AREA",
+        title_kwds={
+            "fontsize": 50,
+            "fontname": "sans-serif",
+            "fontweight": 3,
+            "loc": "right",
+        },
+        scale_factor=2000,
+    )
+
+.. image:: images/bubble5.png
+   :width: 600
+
+
 .. py:function:: cartogram(    data,    column,    basecolor="#F1F3F4",    base_boundary=True,    cartogram_only=False,    title=None,    title_kwds={},    figsize=(15, 15),    linewidth=0.5,    cmap="YlOrRd",    edgecolor="black",    facecolor="white",    scheme="percentiles",    boundarycolor="black",    boundary_linewidth=0.5,    scale_colorbar=False,    legend=True,    annot=False,    annot_column=None,    annot_align="center",    annot_kwds={},    ax=None,    axis_on=False,    **geopandas_plot_kwds,)
  
     Plots a cartogram
@@ -280,7 +445,56 @@ gspatial\_plot package
     :param \*\*geopandas_plot_kwds: Geopandas plot keyword arguments
     :returns: matplotlib axis object
     :rtype: ax
+
+**Examples**
+::
     
+    gsp.cartogram(usa,"AWATER")
+
+.. image:: images/cartogram1.png
+   :width: 600
+
+::
+    
+    gsp.cartogram(
+        usa,
+        usa["AWATER"],
+        cmap="Blues",
+        figsize=(30, 30),
+        legend_kwds={"loc": "lower left", "bbox_to_anchor": (0, 0.2), "prop": {"size": 22}},
+        title="USA TOTAL WATER AREA",
+        title_kwds={
+            "fontsize": 50,
+            "fontname": "sans-serif",
+            "fontweight": 3,
+            "loc": "right",
+        },
+    )
+
+.. image:: images/cartogram2.png
+   :width: 600
+
+::
+    
+    gsp.cartogram(
+        usa,
+        usa["AWATER"],
+        cartogram_only=True,
+        cmap="Blues",
+        figsize=(30, 30),
+        legend_kwds={"loc": "lower left", "bbox_to_anchor": (0, 0.2), "prop": {"size": 22}},
+        title="USA TOTAL WATER AREA",
+        title_kwds={
+            "fontsize": 50,
+            "fontname": "sans-serif",
+            "fontweight": 3,
+            "loc": "right",
+        },
+    )
+
+.. image:: images/cartogram3.png
+   :width: 600
+
 .. py:function:: densityplot(    data,    base=None,    clip=False,    clip_factor=1.2,    point_data=False,    title=None,    title_kwds={},    figsize=(15, 15),    cmap="YlOrRd",    facecolor="white",    boundarycolor="black",    boundary_linewidth=0.5,    scale_colorbar=False,    ax=None,    axis_on=False,    **geopandas_plot_kwds,)
     
     Plots a kde plot over a GeoDataFrame
@@ -317,10 +531,24 @@ gspatial\_plot package
     :param facecolor:  (Default value = "white")
     :returns: matplotlib axis object
     :rtype: ax
+
+**Examples**
+::
     
+    gsp.densityplot(usa)
+
+.. image:: images/kde1.png
+   :width: 600
+
+::
     
+    gsp.densityplot(usa, clip=True, clip_factor=1.5)
+
+.. image:: images/kde2.png
+   :width: 600
+
 .. py:function:: heatmap(    data,    column,    base=None,    point_data=False,    interpolate=False,    interpolation_grid_space=0.05,    clip=False,    clip_factor=1.2,    title=None,    title_kwds={},    figsize=(15, 15),    cmap="YlOrRd",    facecolor="white",    scheme="percentiles",    boundarycolor="black",    boundary_linewidth=0.5,    scale_colorbar=False,    legend=True,    ax=None,    annot=False,    annot_column=None,    annot_align="center",    annot_kwds={},    axis_on=False,    **geopandas_plot_kwds,)
-    
+
     Plots heatmap. For polygons, the function returns a Choropleth map by default unless interpolated.
 
     :param data: GeoDataFrame for which the map must be plotted
@@ -374,8 +602,30 @@ gspatial\_plot package
     :param \*\*geopandas_plot_kwds: Geopandas plot keyword arguments
     :returns: matplotlib axis object
     :rtype: ax
+
+**Examples**
+
+::
     
+    gsp.heatmap(usa, "AWATER")
+
+.. image:: images/heatmap1.png
+   :width: 600
+
+::
     
+    gsp.heatmap(
+        usa,
+        "AWATER",
+        interpolate=True,
+        interpolation_grid_space=0.1,
+        clip=True,
+    )
+
+.. image:: images/heatmap2.png
+   :width: 600
+
+
 .. py:function:: spikemap(    data,    column,    shape="triangle",    spike_only=False,    base=None,    basecolor="#F1F3F4",    baseboundarycolor="black",    base_boundary=True,    point_data=False,    not_wgs84=False,    x_scale_factor=10,    y_scale_factor=10,    title=None,    title_kwds={},    figsize=(15, 15),    linewidth=0.5,    cmap="YlOrRd",    edgecolor=None,    facecolor="white",    scheme="percentiles",    boundarycolor="black",    boundary_linewidth=0.5,    scale_colorbar=False,    legend=True,    annot=False,    annot_column=None,    annot_align="center",    annot_kwds={},    ax=None,    axis_on=False,    **geopandas_plot_kwds,)
     
     Generates a spikemap.
@@ -444,6 +694,70 @@ gspatial\_plot package
     :returns: matplotlib axis object
     :rtype: ax
 
+**Examples**
+::
+    
+    gsp.spikemap(usa, "AWATER")
+
+.. image:: images/spikemap1.png
+   :width: 600
+
+::
+    
+    usa_moll = usa.to_crs("ESRI:54009")
+    gsp.spikemap(usa_moll, "AWATER", x_scale_factor=10, y_scale_factor=10, not_wgs84=True)
+
+.. image:: images/spikemap2.png
+   :width: 600
+
+::
+    
+    gsp.spikemap(usa, "AWATER", spike_only=True)
+
+.. image:: images/spikemap3.png
+   :width: 600
+
+::
+    
+    gsp.spikemap(
+        usa,
+        usa["AWATER"],
+        cmap="Blues",
+        figsize=(30, 30),
+        legend_kwds={"loc": "lower left", "bbox_to_anchor": (0, 0.2), "prop": {"size": 22}},
+        title="USA TOTAL WATER AREA",
+        title_kwds={
+            "fontsize": 50,
+            "fontname": "sans-serif",
+            "fontweight": 3,
+            "loc": "right",
+        },
+    )
+
+.. image:: images/spikemap4.png
+   :width: 600
+
+::
+    
+    gsp.spikemap(
+        usa,
+        usa["AWATER"],
+        shape="rectangle",
+        cmap="Blues",
+        figsize=(30, 30),
+        legend_kwds={"loc": "lower left", "bbox_to_anchor": (0, 0.2), "prop": {"size": 22}},
+        title="USA TOTAL WATER AREA",
+        title_kwds={
+            "fontsize": 50,
+            "fontname": "sans-serif",
+            "fontweight": 3,
+            "loc": "right",
+        },
+    )
+
+.. image:: images/spikemap5.png
+   :width: 600
+
 
 .. py:function:: offline_static_basemap(    bounds=None,    landcolor="#f1e9d7",    watercolor="#7ae2ff",    gridlinescolor="grey",    gridlines_alpha=0.5,    gridlines_width=0.5,    figsize=(15, 15),    title=None,    title_kwds={},    facecolor="white",    edgecolor="black",    edgewidth=0,    linewidth=0,    ax=None,    axis_on=False,    **geopandas_plot_kwds,)
  
@@ -484,7 +798,36 @@ gspatial\_plot package
     :returns: matplotlib axis object
     :rtype: ax
     
+**Examples**
+::
     
+    gsp.offline_static_basemap()
+
+.. image:: images/static1.png
+   :width: 600
+
+::
+    
+    ax = gsp.offline_static_basemap(bounds=usa.total_bounds)
+    gsp.pointplot(usa_points, ax=ax)
+
+.. image:: images/static2.png
+   :width: 600
+
+::
+    
+    ax = gsp.offline_static_basemap(
+        bounds=usa.total_bounds,
+        landcolor="#DCE1B5",
+        watercolor="#68BCFF",
+        gridlines_alpha=0,
+        linewidth=0.5,
+    )
+    gsp.pointplot(usa_points, ax=ax)
+
+.. image:: images/static3.png
+   :width: 600
+
 .. py:function:: offline_folium_basemap(    location=[0, 0],    landcolor="#f1e9d7",    watercolor="#32d2ff",    gridlinescolor="grey",    gridlines_opacity=0.5,    gridlines_weight=0.5,    dash_array="5, 5",    edgecolor="black",    borders=0,    linewidth=0.5,    zoom_start=2,    max_zoom=5,    style_function=None,    \*\*folium_kwds,)
 
     Generates a interactive folium basemap that can be used as base for other plots.
@@ -520,3 +863,10 @@ gspatial\_plot package
     :returns: Folium map object
     :rtype: m
 
+**Examples**
+::
+    
+    gsp.offline_folium_basemap(crs="EPSG4326")
+
+.. image:: images/folium1.png
+   :width: 600

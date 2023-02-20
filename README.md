@@ -1,16 +1,14 @@
 # gspatial_plot
 
+![](./docs/images/logo.png)
+
 [![License](https://shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 A geospatial plotting library built on top of geopandas. The aim of this library is to simplify generation of various geospatial plot and provide a simple interface to various commonly used geospatial plot types.
 
-
-
 # Documentation
 
 [Welcome to gspatial-plot’s documentation! &mdash; gspatial-plot 0.1.0a0 documentation](https://gspatial-plot.readthedocs.io/en/latest/index.html)
-
-
 
 # Features
 
