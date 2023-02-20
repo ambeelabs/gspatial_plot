@@ -2,7 +2,10 @@
 
 ![](https://gspatial-plot.readthedocs.io/en/latest/_images/logo.png)
 
-[![License](https://shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![License](https://shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Downloads](https://static.pepy.tech/badge/gspatial-plot)](https://pepy.tech/project/gspatial-plot)
+[![Documentation Status](https://readthedocs.org/projects/gspatial-plot/badge/?version=latest)](https://gspatial-plot.readthedocs.io/en/latest/?badge=latest)
 
 A geospatial plotting library built on top of geopandas. The aim of this library is to simplify generation of various geospatial plot and provide a simple interface to various commonly used geospatial plot types.
 
