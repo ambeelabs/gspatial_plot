@@ -1,6 +1,6 @@
 gspatial\_plot package
 ======================
-The examples mentioned in he documentation is also part of examples jupyter notebook present in the github repo, So feel free to download it and play with it.
+The examples mentioned in the documentation is also part of examples jupyter notebook present in the github repo, So feel free to download it and play with it.
 
 .. py:function:: randommap(    data,    title=None,    title_kwds={},    figsize=(15, 15),    facecolor="white",    edgecolor="black",    linewidth=0.5,    seed=3,    annot=False,    annot_column=None,    annot_align="center",    annot_kwds={},    ax=None,    axis_on=False,    colors=colors,    **geopandas_plot_kwds,)
     
