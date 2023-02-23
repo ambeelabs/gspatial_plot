@@ -8,7 +8,7 @@ long_description = open(os.path.join(here, 'README.md')).read()
 setup(
     name="gspatial_plot",
     packages=find_packages(include=["gspatial_plot"]),
-    version="0.1.0-a1",
+    version="0.1.0",
     author="Ambee",
     license="MIT",
     url='https://github.com/ambeelabs/gspatial_plot/',
@@ -29,7 +29,7 @@ setup(
         "Shapely>=1.8.2",
     ],
      classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3.10',
