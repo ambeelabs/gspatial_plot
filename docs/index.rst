@@ -30,7 +30,7 @@ Features
 Installing
 ============
 
-`pip install gspatial_plot`
+`pip install gspatial-plot`
 
 .. toctree::
    :maxdepth: 2

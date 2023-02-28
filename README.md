@@ -27,7 +27,7 @@ A geospatial plotting library built on top of geopandas. The aim of this library
 
 # Installing
 
-`pip install gspatial_plot`
+`pip install gspatial-plot`
 
 # Usage
 
