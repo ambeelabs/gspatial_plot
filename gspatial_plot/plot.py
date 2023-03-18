@@ -705,9 +705,8 @@ def densityplot(
                 ax=ax,
                 **geopandas_plot_kwds,
             )
-
+    plot_data = data.copy()
     if point_data == False:
-        plot_data = data.copy()
         plot_data["geometry"] = plot_data.representative_point()
 
     if scale_colorbar == True:
