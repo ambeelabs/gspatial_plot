@@ -827,7 +827,7 @@ def heatmap(
         ax = base.boundary.plot(
             color=boundarycolor, linewidth=boundary_linewidth, ax=ax
         )
-    else:
+    elif point_data is False:
         ax = data.boundary.plot(
             color=boundarycolor, linewidth=boundary_linewidth, ax=ax
         )
