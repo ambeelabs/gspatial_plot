@@ -947,7 +947,7 @@ The examples mentioned in the documentation is also part of examples jupyter not
 
 .. py:function:: show_raster(data,title=None,title_kwds={},figsize=(15,15),cmap="YlOrRd",facecolor="white",colorbar=False,legend_kwds={},ax=None,axis_on=False,**show_kwds,)
 
-   Wrapper around rasterio show with additional functionalities like better defaults and colorbar.
+    Wrapper around rasterio show with additional functionalities like better defaults and colorbar.
 
     :param data: Data to plot
     :type data: rasterio DatasetReader
