@@ -9,6 +9,8 @@ from geopandas.plotting import _PolygonPatch
 from shapely.affinity import scale
 from shapely.geometry import Polygon
 from shapely.validation import make_valid
+import rioxarray
+from rasterio.plot import show
 from .config import (
     colors,
     countries,
@@ -61,7 +63,7 @@ def randommap(
 
     Returns:
         ax: matplotlib axis object
-    
+
     """
     np.random.seed(seed=seed)
     colors = np.random.choice(colors, size=len(data))
@@ -1061,7 +1063,6 @@ def spikemap(
         **geopandas_plot_kwds,
     )
 
-
     if annot == True and annot_column is not None:
         data.apply(
             lambda x: ax.annotate(
@@ -1295,3 +1296,138 @@ def offline_folium_basemap(
 
     return m
 
+
+def plot_xarray_raster(
+    data,
+    field=None,
+    title=None,
+    title_kwds={},
+    figsize=(15, 15),
+    cmap="YlOrRd",
+    clip_bbox=False,
+    bounds=None,
+    bounds_crs=None,
+    clip_gdf=False,
+    gdf=None,
+    lower_limit=None,
+    upper_limit=None,
+    facecolor="white",
+    robust=True,
+    legend_kwds={},
+    ax=None,
+    axis_on=False,
+    **xarray_plot_kwds,
+):
+    """Plots raster xarray data and returns axis. This is a wrapper around xarray plot function.
+
+    Args:
+        data (xarray Dataset/DataArray): Xarray raster data to plot
+        field (str, optional): The field of Dataset to plot. This is only applicable for Dataset. Defaults to None.
+        title (str, optional): Title for the plot. Defaults to None.
+        title_kwds (dict, optional): title_kwds (dict, optional): Keyword arguments to matplotlib.pyplot.title. Defaults to {}.
+        figsize (tuple, optional): Figure size. Defaults to (15, 15).
+        cmap (str, optional): Colormap for the plot. Defaults to "YlOrRd".
+        clip_bbox (bool, optional): Clips to bounds if True. Defaults to False.
+        bounds (list, optional): Bounding box for clipping. Defaults to None.
+        bounds_crs (str, optional): CRS for Bounding Box. Defaults to None.
+        clip_gdf (bool, optional): Clips to a GeoDataFrame if True. Defaults to False.
+        gdf (GeoDataFrame, optional): GeoDataFrame to clip the raster. Defaults to None.
+        lower_limit (float, optional): Lower limit for the scale. Defaults to None.
+        upper_limit (float, optional):  Upper limit for the scale. Defaults to None.
+        facecolor (str, optional): Figure's face color. Defaults to "white".
+        robust (bool, optional): Uses data between 2% to 98% for figure scale if True. Defaults to True.
+        legend_kwds (dict, optional): Keywords for colorbar/legend. Defaults to {}.
+        ax (matplotlib axis, optional): axis must be passed if plotting needs to be done on an existing axis. Defaults to None.
+        axis_on (bool, optional): If True, axes will be visible. Defaults to False.
+        **xarray_plot_kwds: Keywords for xarray plot.
+
+    Returns:
+        ax: matplotlib axis object
+    """
+    if ax is None:
+        fig, ax = plt.subplots(figsize=figsize, facecolor=facecolor)
+
+    ax.axis("off")
+
+    if axis_on == True:
+        ax.axis("on")
+    if field is not None:
+        data = data[field]
+    if clip_bbox == True:
+        if bounds_crs is not None:
+            data = data.rio.clip_box(
+                bounds[0], bounds[1], bounds[2], bounds[3], crs=bounds_crs
+            )
+        else:
+            data = data.rio.clip_box(bounds[0], bounds[1], bounds[2], bounds[3])
+    if clip_gdf == True:
+        data = data.rio.clip(gdf.geometry.values, gdf.crs, drop=True)
+    if lower_limit is not None:
+        data = data.where(data >= lower_limit)
+    if upper_limit is not None:
+        data = data.where(data <= upper_limit)
+    if len(legend_kwds) > 0:
+        data.plot(
+            ax=ax,
+            cmap=cmap,
+            robust=robust,
+            cbar_kwargs=legend_kwds,
+            **xarray_plot_kwds,
+        )
+    else:
+        data.plot(
+            ax=ax,
+            cmap=cmap,
+            robust=robust,
+            **xarray_plot_kwds,
+        )
+    if title is not None:
+        ax.set_title(title, **title_kwds)
+    return ax
+
+
+def show_raster(
+    data,
+    title=None,
+    title_kwds={},
+    figsize=(15, 15),
+    cmap="YlOrRd",
+    facecolor="white",
+    colorbar=False,
+    legend_kwds={},
+    ax=None,
+    axis_on=False,
+    **show_kwds,
+):
+    """Wrapper around rasterio show with additional functionalities like better defaults and colorbar.
+
+    Args:
+        data (rasterio DatasetReader): Data to plot
+        title (str, optional): Title for the plot. Defaults to None.
+        title_kwds (dict, optional): title_kwds (dict, optional): Keyword arguments to matplotlib.pyplot.title. Defaults to {}.
+        figsize (tuple, optional): Figure size. Defaults to (15, 15).
+        cmap (str, optional): Colormap for the plot. Defaults to "YlOrRd".
+        facecolor (str, optional): Figure's face color. Defaults to "white".
+        colorbar (bool, optional): Inserts colorbar if True. Defaults to False.
+        legend_kwds (dict, optional): Keywords for colorbar/legend. Defaults to {}.
+        ax (matplotlib axis, optional): axis must be passed if plotting needs to be done on an existing axis. Defaults to None.
+        axis_on (bool, optional): If True, axes will be visible. Defaults to False.
+        **show_kwds: Additional keywords for rasterio show function
+    Returns:
+        ax: matplotlib axis object
+    """
+    if ax is None:
+        fig, ax = plt.subplots(figsize=figsize, facecolor=facecolor)
+
+    if title is not None:
+        plt.title(title, **title_kwds)
+
+    ax.axis("off")
+    if axis_on == True:
+        ax.axis("on")
+
+    plot = show(data, ax=ax, cmap=cmap, **show_kwds)
+    if colorbar == True:
+        im = plot.get_images()[0]
+        fig.colorbar(im, ax=ax, **legend_kwds)
+    return ax
