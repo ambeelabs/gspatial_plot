@@ -274,7 +274,6 @@ def choropleth(
     scheme="percentiles",
     boundarycolor="black",
     boundary_linewidth=0.5,
-    scale_colorbar=False,
     legend=True,
     annot=False,
     annot_column=None,
@@ -298,7 +297,6 @@ def choropleth(
         scheme (str, optional): mapclassify scheme for assigning colors. Defaults to "percentiles".
         boundarycolor (str, optional): Map's boundary color. Defaults to "black".
         boundary_linewidth (float, optional): Linewidth of boundaries. Defaults to 0.5.
-        scale_colorbar (bool, optional): If True, the colorbar is scaled to the map extents. Defaults to False.
         legend (bool, optional): If True, legend is displayed. Defaults to True.
         annot (bool, optional): If True, annotations are generated. Defaults to False.
         annot_column (str/GeoDataFrame column, optional): If annot is True, column should b passed as source for annotation. Defaults to None.
@@ -325,9 +323,6 @@ def choropleth(
 
     ax = data.boundary.plot(color=boundarycolor, linewidth=boundary_linewidth, ax=ax)
 
-    if scale_colorbar == True:
-        legend = False
-
     data.plot(
         ax=ax,
         column=column,
@@ -336,9 +331,6 @@ def choropleth(
         legend=legend,
         **geopandas_plot_kwds,
     )
-
-    if scale_colorbar == True:
-        ax.figure.colorbar(ax.collections[1], fraction=0.023, ax=ax)
 
     if annot == True and annot_column is not None:
         data.apply(
@@ -373,7 +365,6 @@ def bubblemap(
     scheme="percentiles",
     boundarycolor="black",
     boundary_linewidth=0.5,
-    scale_colorbar=False,
     legend=True,
     annot=False,
     annot_column=None,
@@ -405,7 +396,6 @@ def bubblemap(
         scheme (str, optional): mapclassify scheme for assigning colors. Defaults to "percentiles".
         boundarycolor (str, optional): Map's boundary color. Defaults to "black".
         boundary_linewidth (float, optional): Linewidth of boundaries. Defaults to 0.5.
-        scale_colorbar (bool, optional): If True, the colorbar is scaled to the map extents. Defaults to False.
         legend (bool, optional): If True, legend is displayed. Defaults to True.
         annot (bool, optional): If True, annotations are generated. Defaults to False.
         annot_column (str/GeoDataFrame column, optional): If annot is True, column should b passed as source for annotation. Defaults to None.
@@ -472,9 +462,6 @@ def bubblemap(
             else:
                 ax = shapeplot(base, color=basecolor, linewidth=linewidth, ax=ax)
 
-    if scale_colorbar == True:
-        legend = False
-
     plot_data.plot(
         ax=ax,
         column=column,
@@ -486,9 +473,6 @@ def bubblemap(
         legend=legend,
         **geopandas_plot_kwds,
     )
-
-    if scale_colorbar == True:
-        ax.figure.colorbar(ax.collections[1], fraction=0.023, ax=ax)
 
     if annot == True and annot_column is not None:
         data.apply(
@@ -520,7 +504,6 @@ def cartogram(
     scheme="percentiles",
     boundarycolor="black",
     boundary_linewidth=0.5,
-    scale_colorbar=False,
     legend=True,
     annot=False,
     annot_column=None,
@@ -549,7 +532,6 @@ def cartogram(
         scheme (str, optional): mapclassify scheme for assigning colors. Defaults to "percentiles".
         boundarycolor (str, optional): Map's boundary color. Defaults to "black".
         boundary_linewidth (float, optional): Linewidth of boundaries. Defaults to 0.5.
-        scale_colorbar (bool, optional): If True, the colorbar is scaled to the map extents. Defaults to False.
         legend (bool, optional): If True, legend is displayed. Defaults to True.
         annot (bool, optional): If True, annotations are generated. Defaults to False.
         annot_column (str/GeoDataFrame column, optional): If annot is True, column should b passed as source for annotation. Defaults to None.
@@ -603,9 +585,6 @@ def cartogram(
         else:
             ax = shapeplot(data, color=basecolor, linewidth=linewidth, ax=ax)
 
-    if scale_colorbar == True:
-        legend = False
-
     plot_data.plot(
         ax=ax,
         column=column,
@@ -617,9 +596,6 @@ def cartogram(
         legend=legend,
         **geopandas_plot_kwds,
     )
-
-    if scale_colorbar == True:
-        ax.figure.colorbar(ax.collections[1], fraction=0.023, ax=ax)
 
     if annot == True and annot_column is not None:
         data.apply(
@@ -648,7 +624,6 @@ def densityplot(
     facecolor="white",
     boundarycolor="black",
     boundary_linewidth=0.5,
-    scale_colorbar=False,
     ax=None,
     axis_on=False,
     **geopandas_plot_kwds,
@@ -668,7 +643,6 @@ def densityplot(
         cmap (str, optional): Colormap for the plot. Defaults to "YlOrRd".
         boundarycolor (str, optional): Map's boundary color. Defaults to "black".
         boundary_linewidth (float, optional): Linewidth of boundaries. Defaults to 0.5.
-        scale_colorbar (bool, optional): If True, the colorbar is scaled to the map extents. Defaults to False.
         ax (matplotlib axis, optional): axis must be passed if plotting needs to be done on an existing axis. Defaults to None.
         axis_on (bool, optional): If True, axes will be visible. Defaults to False.
         **geopandas_plot_kwds: Geopandas plot keyword arguments
@@ -708,9 +682,6 @@ def densityplot(
     plot_data = data.copy()
     if point_data == False:
         plot_data["geometry"] = plot_data.representative_point()
-
-    if scale_colorbar == True:
-        legend = False
 
     sns.kdeplot(
         x=plot_data["geometry"].x,
@@ -768,7 +739,6 @@ def heatmap(
     scheme="percentiles",
     boundarycolor="black",
     boundary_linewidth=0.5,
-    scale_colorbar=False,
     legend=True,
     ax=None,
     annot=False,
@@ -798,7 +768,6 @@ def heatmap(
         scheme (str, optional): mapclassify scheme for assigning colors. Defaults to "percentiles".
         boundarycolor (str, optional): Map's boundary color. Defaults to "black".
         boundary_linewidth (float, optional): Linewidth of boundaries. Defaults to 0.5.
-        scale_colorbar (bool, optional): If True, the colorbar is scaled to the map extents. Defaults to False.
         legend (bool, optional): If True, legend is displayed. Defaults to True.
         annot (bool, optional): If True, annotations are generated. Defaults to False.
         annot_column (str/GeoDataFrame column, optional): If annot is True, column should b passed as source for annotation. Defaults to None.
@@ -882,9 +851,6 @@ def heatmap(
 
         plot_data = grid
 
-    if scale_colorbar == True:
-        legend = False
-
     plot_data.plot(
         ax=ax,
         column=column,
@@ -893,9 +859,6 @@ def heatmap(
         legend=legend,
         **geopandas_plot_kwds,
     )
-
-    if scale_colorbar == True:
-        ax.figure.colorbar(ax.collections[1], fraction=0.023, ax=ax)
 
     if clip == True:
         if base is not None:
@@ -962,7 +925,6 @@ def spikemap(
     scheme="percentiles",
     boundarycolor="black",
     boundary_linewidth=0.5,
-    scale_colorbar=False,
     legend=True,
     annot=False,
     annot_column=None,
@@ -998,7 +960,6 @@ def spikemap(
         scheme (str, optional): mapclassify scheme for assigning colors. Defaults to "percentiles".
         boundarycolor (str, optional): Map's boundary color. Defaults to "black".
         boundary_linewidth (float, optional): Linewidth of boundaries. Defaults to 0.5.
-        scale_colorbar (bool, optional): If True, the colorbar is scaled to the map extents. Defaults to False.
         legend (bool, optional): If True, legend is displayed. Defaults to True.
         annot (bool, optional): If True, annotations are generated. Defaults to False.
         annot_column (str/GeoDataFrame column, optional): If annot is True, column should b passed as source for annotation. Defaults to None.
@@ -1055,8 +1016,6 @@ def spikemap(
             else:
                 ax = shapeplot(base, color=basecolor, linewidth=linewidth, ax=ax)
 
-    if scale_colorbar == True:
-        legend = False
     if not_wgs84 == True:
         original_crs = data.crs
         plot_data = plot_data.to_crs("4326")
@@ -1102,8 +1061,6 @@ def spikemap(
         **geopandas_plot_kwds,
     )
 
-    if scale_colorbar == True:
-        ax.figure.colorbar(ax.collections[1], fraction=0.023, ax=ax)
 
     if annot == True and annot_column is not None:
         data.apply(
