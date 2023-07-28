@@ -8,7 +8,7 @@ long_description = open(os.path.join(here, 'README.md')).read()
 setup(
     name="gspatial_plot",
     packages=find_packages(include=["gspatial_plot"]),
-    version="0.1.2",
+    version="0.2.0",
     author="Ambee",
     license="MIT",
     url='https://github.com/ambeelabs/gspatial_plot/',
@@ -23,6 +23,8 @@ setup(
         "matplotlib>=3.6.2",
         "pandas>=1.5.2",
         "pyproj>=3.4.1",
+        "rasterio>=1.3.8",
+        "rioxarray>=0.13.3",
         "scikit-learn>=1.0.1",
         "scipy>=1.10.0",
         "seaborn>=0.12.2",
