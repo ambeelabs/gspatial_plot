@@ -2,7 +2,7 @@ gspatial\_plot package
 ======================
 The examples mentioned in the documentation is also part of examples jupyter notebook present in the github repo, So feel free to download it and play with it.
 
-.. py:function:: randommap(    data,    title=None,    title_kwds={},    figsize=(15, 15),    facecolor="white",    edgecolor="black",    linewidth=0.5,    seed=3,    annot=False,    annot_column=None,    annot_align="center",    annot_kwds={},    ax=None,    axis_on=False,    colors=colors,    **geopandas_plot_kwds,)
+.. py:function:: randommap(data,title=None,title_kwds={},figsize=(15,15),facecolor="white",edgecolor="black",linewidth=0.5,seed=3,annot=False,annot_column=None,annot_align="center",annot_kwds={},ax=None,axis_on=False,colors=colors,**geopandas_plot_kwds,)
     
     Fills the data with random colors. Ideal for generating political maps.
 
@@ -48,7 +48,7 @@ The examples mentioned in the documentation is also part of examples jupyter not
 .. image:: images/randommap1.png
    :width: 600
 
-.. py:function:: shapeplot(    data,    title=None,    title_kwds={},    figsize=(15, 15),    facecolor="white",    edgecolor="grey",    linewidth=0.5,    color="#F1F3F4",    annot=False,    annot_column=None,    annot_align="center",    annot_kwds={},    ax=None,    axis_on=False,    **geopandas_plot_kwds,)
+.. py:function:: shapeplot(data,title=None,title_kwds={},figsize=(15,15),facecolor="white",edgecolor="grey",linewidth=0.5,color="#F1F3F4",annot=False,annot_column=None,annot_align="center",annot_kwds={},ax=None,axis_on=False,**geopandas_plot_kwds,)
     
     Plots GeoDataFrame shapes. replacement for geopandas plot's default plot.
 
@@ -104,7 +104,7 @@ The examples mentioned in the documentation is also part of examples jupyter not
    :width: 600
 
 
-.. py:function:: pointplot(    data,    base=None,    title=None,    title_kwds={},    figsize=(15, 15),    color="#ffb536",    edgecolor="black",    basecolor="#F1F3F4",    baseboundarycolor="black",    base_boundary=True,    boundary_linewidth=0.5,    linewidth=0.5,    annot=False,    annot_column=None,    annot_align="center",    annot_kwds={},    ax=None,    axis_on=False,    facecolor="white",    **geopandas_plot_kwds,)
+.. py:function:: pointplot(data,base=None,title=None,title_kwds={},figsize=(15,15),color="#ffb536",edgecolor="black",basecolor="#F1F3F4",baseboundarycolor="black",base_boundary=True,boundary_linewidth=0.5,linewidth=0.5,annot=False,annot_column=None,annot_align="center",annot_kwds={},ax=None,axis_on=False,facecolor="white",**geopandas_plot_kwds,)
  
     Plots point data. Can plot it over another GeoDataFrame
 
@@ -195,7 +195,7 @@ The examples mentioned in the documentation is also part of examples jupyter not
    :width: 600
 
 
-.. py:function:: choropleth(    data,    column,    title=None,    title_kwds={},    figsize=(15, 15),    cmap="YlOrRd",    facecolor="white",    scheme="percentiles",    boundarycolor="black",    boundary_linewidth=0.5,    scale_colorbar=False,    legend=True,    annot=False,    annot_column=None,    annot_align="center",    annot_kwds={},    ax=None,    axis_on=False,    **geopandas_plot_kwds,)
+.. py:function:: choropleth(data,column,title=None,title_kwds={},figsize=(15,15),cmap="YlOrRd",facecolor="white",scheme="percentiles",boundarycolor="black",boundary_linewidth=0.5,legend=True,annot=False,annot_column=None,annot_align="center",annot_kwds={},ax=None,axis_on=False,**geopandas_plot_kwds,)
  
     Generates Choropleth Map. Replacement for geopandas plot with a column passed in arguments.
 
@@ -219,8 +219,6 @@ The examples mentioned in the documentation is also part of examples jupyter not
     :type boundarycolor: str
     :param boundary_linewidth: Linewidth of boundaries. Defaults to 0.5.
     :type boundary_linewidth: float
-    :param scale_colorbar: If True, the colorbar is scaled to the map extents. Defaults to False.
-    :type scale_colorbar: bool
     :param legend: If True, legend is displayed. Defaults to True.
     :type legend: bool
     :param annot: If True, annotations are generated. Defaults to False.
@@ -253,7 +251,7 @@ The examples mentioned in the documentation is also part of examples jupyter not
         usa,
         "AWATER",
         scheme=None,
-        scale_colorbar=True,
+        legend_kwds={"shrink": 0.5},
     )
 
 .. image:: images/chropleth2.png
@@ -280,7 +278,7 @@ The examples mentioned in the documentation is also part of examples jupyter not
    :width: 600
 
 
-.. py:function:: bubblemap(    data,    column,    base=None,    basecolor="#F1F3F4",    baseboundarycolor="black",    base_boundary=True,    point_data=False,    scale_factor=200,    title=None,    title_kwds={},    figsize=(15, 15),    linewidth=0.5,    cmap="YlOrRd",    edgecolor="black",    facecolor="white",    scheme="percentiles",    boundarycolor="black",    boundary_linewidth=0.5,    scale_colorbar=False,    legend=True,    annot=False,    annot_column=None,    annot_align="center",    annot_kwds={},    ax=None,    axis_on=False,    **geopandas_plot_kwds,)
+.. py:function:: bubblemap(data,column,base=None,basecolor="#F1F3F4",baseboundarycolor="black",base_boundary=True,point_data=False,scale_factor=200,title=None,title_kwds={},figsize=(15,15),linewidth=0.5,cmap="YlOrRd",edgecolor="black",facecolor="white",scheme="percentiles",boundarycolor="black",boundary_linewidth=0.5,legend=True,annot=False,annot_column=None,annot_align="center",annot_kwds={},ax=None,axis_on=False,**geopandas_plot_kwds,)
     
     Plots a bubble map.
 
@@ -320,8 +318,6 @@ The examples mentioned in the documentation is also part of examples jupyter not
     :type boundarycolor: str
     :param boundary_linewidth: Linewidth of boundaries. Defaults to 0.5.
     :type boundary_linewidth: float
-    :param scale_colorbar: If True, the colorbar is scaled to the map extents. Defaults to False.
-    :type scale_colorbar: bool
     :param legend: If True, legend is displayed. Defaults to True.
     :type legend: bool
     :param annot: If True, annotations are generated. Defaults to False.
@@ -392,7 +388,7 @@ The examples mentioned in the documentation is also part of examples jupyter not
    :width: 600
 
 
-.. py:function:: cartogram(    data,    column,    basecolor="#F1F3F4",    base_boundary=True,    cartogram_only=False,    title=None,    title_kwds={},    figsize=(15, 15),    linewidth=0.5,    cmap="YlOrRd",    edgecolor="black",    facecolor="white",    scheme="percentiles",    boundarycolor="black",    boundary_linewidth=0.5,    scale_colorbar=False,    legend=True,    annot=False,    annot_column=None,    annot_align="center",    annot_kwds={},    ax=None,    axis_on=False,    **geopandas_plot_kwds,)
+.. py:function:: cartogram(data,column,basecolor="#F1F3F4",base_boundary=True,cartogram_only=False,title=None,title_kwds={},figsize=(15,15),linewidth=0.5,cmap="YlOrRd",edgecolor="black",facecolor="white",scheme="percentiles",boundarycolor="black",boundary_linewidth=0.5,legend=True,annot=False,annot_column=None,annot_align="center",annot_kwds={},ax=None,axis_on=False,**geopandas_plot_kwds,)
  
     Plots a cartogram
 
@@ -426,8 +422,6 @@ The examples mentioned in the documentation is also part of examples jupyter not
     :type boundarycolor: str
     :param boundary_linewidth: Linewidth of boundaries. Defaults to 0.5.
     :type boundary_linewidth: float
-    :param scale_colorbar: If True, the colorbar is scaled to the map extents. Defaults to False.
-    :type scale_colorbar: bool
     :param legend: If True, legend is displayed. Defaults to True.
     :type legend: bool
     :param annot: If True, annotations are generated. Defaults to False.
@@ -495,7 +489,7 @@ The examples mentioned in the documentation is also part of examples jupyter not
 .. image:: images/cartogram3.png
    :width: 600
 
-.. py:function:: densityplot(    data,    base=None,    clip=False,    clip_factor=1.2,    point_data=False,    title=None,    title_kwds={},    figsize=(15, 15),    cmap="YlOrRd",    facecolor="white",    boundarycolor="black",    boundary_linewidth=0.5,    scale_colorbar=False,    ax=None,    axis_on=False,    **geopandas_plot_kwds,)
+.. py:function:: densityplot(data,base=None,clip=False,clip_factor=1.2,point_data=False,title=None,title_kwds={},figsize=(15,15),cmap="YlOrRd",facecolor="white",boundarycolor="black",boundary_linewidth=0.5,ax=None,axis_on=False,**geopandas_plot_kwds,)
     
     Plots a kde plot over a GeoDataFrame
 
@@ -521,8 +515,6 @@ The examples mentioned in the documentation is also part of examples jupyter not
     :type boundarycolor: str
     :param boundary_linewidth: Linewidth of boundaries. Defaults to 0.5.
     :type boundary_linewidth: float
-    :param scale_colorbar: If True, the colorbar is scaled to the map extents. Defaults to False.
-    :type scale_colorbar: bool
     :param ax: axis must be passed if plotting needs to be done on an existing axis. Defaults to None.
     :type ax: matplotlib axis
     :param axis_on: If True, axes will be visible. Defaults to False.
@@ -547,7 +539,7 @@ The examples mentioned in the documentation is also part of examples jupyter not
 .. image:: images/kde2.png
    :width: 600
 
-.. py:function:: heatmap(    data,    column,    base=None,    point_data=False,    interpolate=False,    interpolation_grid_space=0.05,    clip=False,    clip_factor=1.2,    title=None,    title_kwds={},    figsize=(15, 15),    cmap="YlOrRd",    facecolor="white",    scheme="percentiles",    boundarycolor="black",    boundary_linewidth=0.5,    scale_colorbar=False,    legend=True,    ax=None,    annot=False,    annot_column=None,    annot_align="center",    annot_kwds={},    axis_on=False,    **geopandas_plot_kwds,)
+.. py:function:: heatmap(data,column,base=None,point_data=False,interpolate=False,interpolation_grid_space=0.05,clip=False,clip_factor=1.2,title=None,title_kwds={},figsize=(15,15),cmap="YlOrRd",facecolor="white",scheme="percentiles",boundarycolor="black",boundary_linewidth=0.5,legend=True,ax=None,annot=False,annot_column=None,annot_align="center",annot_kwds={},axis_on=False,**geopandas_plot_kwds,)
 
     Plots heatmap. For polygons, the function returns a Choropleth map by default unless interpolated.
 
@@ -583,8 +575,6 @@ The examples mentioned in the documentation is also part of examples jupyter not
     :type boundarycolor: str
     :param boundary_linewidth: Linewidth of boundaries. Defaults to 0.5.
     :type boundary_linewidth: float
-    :param scale_colorbar: If True, the colorbar is scaled to the map extents. Defaults to False.
-    :type scale_colorbar: bool
     :param legend: If True, legend is displayed. Defaults to True.
     :type legend: bool
     :param annot: If True, annotations are generated. Defaults to False.
@@ -626,7 +616,7 @@ The examples mentioned in the documentation is also part of examples jupyter not
    :width: 600
 
 
-.. py:function:: spikemap(    data,    column,    shape="triangle",    spike_only=False,    base=None,    basecolor="#F1F3F4",    baseboundarycolor="black",    base_boundary=True,    point_data=False,    not_wgs84=False,    x_scale_factor=10,    y_scale_factor=10,    title=None,    title_kwds={},    figsize=(15, 15),    linewidth=0.5,    cmap="YlOrRd",    edgecolor=None,    facecolor="white",    scheme="percentiles",    boundarycolor="black",    boundary_linewidth=0.5,    scale_colorbar=False,    legend=True,    annot=False,    annot_column=None,    annot_align="center",    annot_kwds={},    ax=None,    axis_on=False,    **geopandas_plot_kwds,)
+.. py:function:: spikemap(data,column,shape="triangle",spike_only=False,base=None,basecolor="#F1F3F4",baseboundarycolor="black",base_boundary=True,point_data=False,not_wgs84=False,x_scale_factor=10,y_scale_factor=10,title=None,title_kwds={},figsize=(15,15),linewidth=0.5,cmap="YlOrRd",edgecolor=None,facecolor="white",scheme="percentiles",boundarycolor="black",boundary_linewidth=0.5,legend=True,annot=False,annot_column=None,annot_align="center",annot_kwds={},ax=None,axis_on=False,**geopandas_plot_kwds,)
     
     Generates a spikemap.
 
@@ -674,8 +664,6 @@ The examples mentioned in the documentation is also part of examples jupyter not
     :type boundarycolor: str
     :param boundary_linewidth: Linewidth of boundaries. Defaults to 0.5.
     :type boundary_linewidth: float
-    :param scale_colorbar: If True, the colorbar is scaled to the map extents. Defaults to False.
-    :type scale_colorbar: bool
     :param legend: If True, legend is displayed. Defaults to True.
     :type legend: bool
     :param annot: If True, annotations are generated. Defaults to False.
@@ -759,7 +747,7 @@ The examples mentioned in the documentation is also part of examples jupyter not
    :width: 600
 
 
-.. py:function:: offline_static_basemap(    bounds=None,    landcolor="#f1e9d7",    watercolor="#7ae2ff",    gridlinescolor="grey",    gridlines_alpha=0.5,    gridlines_width=0.5,    figsize=(15, 15),    title=None,    title_kwds={},    facecolor="white",    edgecolor="black",    edgewidth=0,    linewidth=0,    ax=None,    axis_on=False,    **geopandas_plot_kwds,)
+.. py:function:: offline_static_basemap(bounds=None,landcolor="#f1e9d7",watercolor="#7ae2ff",gridlinescolor="grey",gridlines_alpha=0.5,gridlines_width=0.5,figsize=(15,15),title=None,title_kwds={},facecolor="white",edgecolor="black",edgewidth=0,linewidth=0,ax=None,axis_on=False,**geopandas_plot_kwds,)
  
     Generates a static basemap that can be used as base for other plots.
     This function can be used without internet as the map is generated using naturalearth vector data.
@@ -828,7 +816,7 @@ The examples mentioned in the documentation is also part of examples jupyter not
 .. image:: images/static3.png
    :width: 600
 
-.. py:function:: offline_folium_basemap(    location=[0, 0],    landcolor="#f1e9d7",    watercolor="#32d2ff",    gridlinescolor="grey",    gridlines_opacity=0.5,    gridlines_weight=0.5,    dash_array="5, 5",    edgecolor="black",    borders=0,    linewidth=0.5,    zoom_start=2,    max_zoom=5,    style_function=None,    \*\*folium_kwds,)
+.. py:function:: offline_folium_basemap(location=[0,0],landcolor="#f1e9d7",watercolor="#32d2ff",gridlinescolor="grey",gridlines_opacity=0.5,gridlines_weight=0.5,dash_array="5,5",edgecolor="black",borders=0,linewidth=0.5,zoom_start=2,max_zoom=5,style_function=None,**folium_kwds,)
 
     Generates a interactive folium basemap that can be used as base for other plots.
     This function can be used without internet as the map is generated using naturalearth vector data.
