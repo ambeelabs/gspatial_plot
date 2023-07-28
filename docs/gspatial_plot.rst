@@ -858,3 +858,125 @@ The examples mentioned in the documentation is also part of examples jupyter not
 
 .. image:: images/folium1.png
    :width: 600
+
+
+.. py:function:: plot_xarray_raster(data,field=None,title=None,title_kwds={},figsize=(15,15),cmap="YlOrRd",clip_bbox=False,bounds=None,bounds_crs=None,clip_gdf=False,gdf=None,lower_limit=None,upper_limit=None,facecolor="white",robust=True,legend_kwds={},ax=None,axis_on=False,**xarray_plot_kwds,)
+
+    Plots raster xarray data and returns axis. This is a wrapper around xarray plot function.
+
+    :param data: Xarray raster data to plot
+    :type data: xarray Dataset/DataArray
+    :param field: The field of Dataset to plot. This is only applicable for Dataset. Defaults to None.
+    :type field: str
+    :param title: Title for the plot. Defaults to None.
+    :type title: str
+    :param title_kwds: title_kwds (dict, optional): Keyword arguments to matplotlib.pyplot.title. Defaults to {}.
+    :type title_kwds: dict
+    :param figsize: Figure size. Defaults to (15, 15).
+    :type figsize: tuple
+    :param cmap: Colormap for the plot. Defaults to "YlOrRd".
+    :type cmap: str
+    :param clip_bbox: Clips to bounds if True. Defaults to False.
+    :type clip_bbox: bool
+    :param bounds: Bounding box for clipping. Defaults to None.
+    :type bounds: list
+    :param bounds_crs: CRS for Bounding Box. Defaults to None.
+    :type bounds_crs: str
+    :param clip_gdf: Clips to a GeoDataFrame if True. Defaults to False.
+    :type clip_gdf: bool
+    :param gdf: GeoDataFrame to clip the raster. Defaults to None.
+    :type gdf: GeoDataFrame
+    :param lower_limit: Lower limit for the scale. Defaults to None.
+    :type lower_limit: float
+    :param upper_limit: Upper limit for the scale. Defaults to None.
+    :type upper_limit: float
+    :param facecolor: Figure's face color. Defaults to "white".
+    :type facecolor: str
+    :param robust: Uses data between 2% to 98% for figure scale if True. Defaults to True.
+    :type robust: bool
+    :param legend_kwds: Keywords for colorbar/legend. Defaults to {}.
+    :type legend_kwds: dict
+    :param ax: axis must be passed if plotting needs to be done on an existing axis. Defaults to None.
+    :type ax: matplotlib axis
+    :param axis_on: If True, axes will be visible. Defaults to False.
+    :type axis_on: bool
+    :param **xarray_plot_kwds: Keywords for xarray plot.
+    :returns: matplotlib axis object
+    :rtype: ax
+
+**Examples**
+::
+    
+    gsp.plot_xarray_raster(data, title="NDVI", legend_kwds={ "label":"NDVI","shrink":.5})
+
+.. image:: images/xarray1.png
+   :width: 600
+
+::
+    
+    bounds = [-57.3733,-8.934,-52.2885,-5.909]
+    gsp.plot_xarray_raster(data, 
+                       title="NDVI", 
+                       legend_kwds={ "label":"NDVI","shrink":.5}, 
+                       clip_bbox=True, 
+                       bounds=bounds, 
+                       bounds_crs="epsg:4326",
+                       figsize=(15,10)
+                      )
+
+.. image:: images/xarray2.png
+   :width: 600
+
+::
+    
+    data = rioxarray.open_rasterio("GHS_POP_E2020_GLOBE_R2022A_54009_1000_V1_0.tif")
+    gdf = gpd.read_file("ne_110m_admin_0_countries.shp")
+    gdf = gdf[gdf["SOVEREIGNT"]=="Brazil"]
+    gsp.plot_xarray_raster(data, 
+                       title="Pop", 
+                       legend_kwds={ "label":"Pop","shrink":.5}, 
+                       clip_gdf=True,
+                       gdf=gdf,
+                       lower_limit=0,
+                       figsize=(15,10),
+                      )
+
+.. image:: images/xarray3.png
+   :width: 600
+
+
+.. py:function:: show_raster(data,title=None,title_kwds={},figsize=(15,15),cmap="YlOrRd",facecolor="white",colorbar=False,legend_kwds={},ax=None,axis_on=False,**show_kwds,)
+
+   Wrapper around rasterio show with additional functionalities like better defaults and colorbar.
+
+    :param data: Data to plot
+    :type data: rasterio DatasetReader
+    :param title: Title for the plot. Defaults to None.
+    :type title: str
+    :param title_kwds: title_kwds (dict, optional): Keyword arguments to matplotlib.pyplot.title. Defaults to {}.
+    :type title_kwds: dict
+    :param figsize: Figure size. Defaults to (15, 15).
+    :type figsize: tuple
+    :param cmap: Colormap for the plot. Defaults to "YlOrRd".
+    :type cmap: str
+    :param facecolor: Figure's face color. Defaults to "white".
+    :type facecolor: str
+    :param colorbar: Inserts colorbar if True. Defaults to False.
+    :type colorbar: bool
+    :param legend_kwds: Keywords for colorbar/legend. Defaults to {}.
+    :type legend_kwds: dict
+    :param ax: axis must be passed if plotting needs to be done on an existing axis. Defaults to None.
+    :type ax: matplotlib axis
+    :param axis_on: If True, axes will be visible. Defaults to False.
+    :type axis_on: bool
+    :param **show_kwds: Keywords for rasterio show function.
+    :returns: matplotlib axis object
+    :rtype: ax
+
+**Examples**
+::
+    
+    gsp.show_raster(data, title="Argentina", colorbar=True, legend_kwds={"shrink":0.5}, vmin=0, vmax=1000)
+
+.. image:: images/rasterio1.png
+   :width: 600
