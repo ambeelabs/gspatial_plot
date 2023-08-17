@@ -11,7 +11,7 @@ A geospatial plotting library built on top of geopandas. The aim of this library
 
 # Documentation
 
-[Welcome to gspatial-plot’s documentation! &mdash; gspatial-plot 0.1.0a0 documentation](https://gspatial-plot.readthedocs.io/en/latest/index.html)
+https://gspatial-plot.readthedocs.io/en/latest/index.html
 
 # Features
 
